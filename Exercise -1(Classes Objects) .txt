@@ -1,0 +1,1067 @@
+Exercise -1(Classes Objects) 
+  1.Creating Objects of DISTANCE class
+Aim: Create a Distance class with, feet and inches as data members , member function to input distance , member function to output distance, member function to add two distance objects. To write a main function to create objects of DISTANCE class. Input two distances and output the sum
+
+Program:
+
+#include<iostream> using namespace std; class dist
+{
+public:
+int feet,inch,x,y,z; void input()
+{
+cout<<"enter feet and inches:"<<"\n"; cin>>feet>>inch;
+}
+void show()
+{
+cout<<"The distance is "; cout<<feet<<" feet "<<inch<<" inch\n";
+}
+void sum(dist x,dist y)
+{
+feet=x.feet+y.feet; inch=x.inch+y.inch; if(inch>=12)
+{
+feet=feet+1; inch=inch-12;
+}
+}
+};
+int main()
+{
+dist x,y,z; x.input();
+y.input();
+z.sum(x,y);
+z.show();
+}
+
+Input and Output:
+
+enter feet and inches: 3 8
+enter feet and inches: 4 9
+The distance is 8 feet 5 inch
+ 
+2.Aim: To write a C++ Program to illustrate the use of Constructors and Destructors (use the above program.)
+Program:
+
+#include <iostream> using namespace std; class Distance
+{
+private:
+int feet; int inches; public:
+Distance() 
+{
+ } 
+Distance(int f, int i)
+{
+feet = f; inches = i;
+}
+void get_distance()
+{
+cout<<"Distance is feet= "<<feet<<", inches= "<<inches<<endl;
+}
+void add(Distance &d1, Distance &d2)
+{
+feet = d1.feet + d2.feet;
+inches = d1.inches + d2.inches; feet = feet + (inches / 12); inches = inches % 12;
+}
+~Distance()
+{
+cout<<"Distance object destroyed"<<endl;
+}
+};
+int main()
+{
+int f1, in1, f2, in2; cout<<"Enter feet: "; cin>>f1;
+cout<<"Enter inches: "; cin>>in1; cout<<"Enter feet: "; cin>>f2;
+cout<<"Enter inches: "; cin>>in2;
+Distance d1(f1, in1); Distance d2(f2, in2); Distance d3; d3.add(d1, d2); d3.get_distance(); return 0;
+}
+ 
+Input and Output:
+
+Enter feet: 3
+Enter inches: 8
+Enter feet: 4
+Enter inches: 9
+Distance is feet= 8, inches= 5 Distance object destroyed Distance object destroyed Distance object destroyed
+ 
+3.Aim: To write a program for illustrating function overloading in adding the distance between objects (use the above problem)
+Program:
+
+#include <iostream> using namespace std; class Distance
+{
+private:
+int feet; int inches; public:
+void set_distance()
+{
+cout<<"Enter feet: "; cin>>feet; cout<<"Enter inches: "; cin>>inches;
+}
+void get_distance()
+{
+cout<<"Distance is feet= "<<feet<<", inches= "<<inches<<endl;
+}
+void add(Distance d1, Distance d2)
+{
+feet = d1.feet + d2.feet;
+inches = d1.inches + d2.inches; feet = feet + (inches / 12); inches = inches % 12;
+}
+void add(Distance *d1, Distance *d2)
+{
+feet = d1->feet + d2->feet;
+inches = d1->inches + d2->inches; feet = feet + (inches / 12);
+inches = inches % 12;
+}
+};
+int main()
+{
+Distance d1, d2, d3; d1.set_distance(); d2.set_distance(); d3.add(d1, d2); d3.get_distance(); d3.add(&d1, &d2); d3.get_distance(); return 0;
+}
+ 
+Input and Output:
+
+Enter feet: 3
+Enter inches: 4
+Enter feet: 4
+Enter inches: 9
+Distance is feet= 8, inches= 1
+Distance is feet= 8, inches= 1
+
+   
+Exercise -2(Access Specifiers)
+Implementing Access Specifiers public, private, protected
+Aim: To write a program for illustrating Access Specifiers public, private, protected
+
+Program:
+
+#include <iostream> using namespace std; class A
+{
+protected: int x; public: A(int p)
+{
+x = p;
+}
+};
+class B : public A
+{
+private:
+int y; public:
+B(int p, int q) : A(p)
+{
+y = q;
+}
+void show()
+{
+cout<<"x = "<<x<<endl; cout<<"y = "<<y<<endl;
+}
+};
+int main()
+{
+B obj(10, 20);
+//Since show is public in class B, it is accessible in main function obj.show(); //x is protected in A so it is accessible in B's show function
+//y is not accessible in main as it is private to class B
+//cout<<obj.y return 0;
+}
+
+Output:
+
+x = 10
+y = 20
+ 
+   1. Aim: To write a program implementing Friend Function
+
+Program:
+
+#include <iostream> using namespace std; class A
+{
+private: int x; public: A(int p)
+{
+x = p;
+}
+friend void display(A &);
+};
+void display(A &obj)
+{
+cout<<"x = "<<obj.x;
+}
+int main()
+{
+A obj(10); display(obj); return 0;
+}
+
+Output:
+
+x = 10
+ 
+  2.Aim: To write a program to illustrate this pointer
+
+Program:
+
+#include <iostream> using namespace std; class A
+{
+private:
+int x; 
+int y; 
+public:
+A(int x, int y)
+{
+this->x = x; this->y = y;
+}
+void display()
+{
+cout<<"x = "<<x<<endl; cout<<"y = "<<y<<endl;
+}
+A& clone()
+{
+return *this;
+}
+};
+int main()
+{
+A obj1(10, 20);
+obj1.display();
+A obj2 = obj1.clone(); obj2.display();
+return 0;
+}
+
+Output:
+
+x = 10
+y = 20
+x = 10
+y = 20
+ 
+   3.Aim:To write a Program to illustrate pointer to a class
+Program:
+
+#include <iostream> using namespace std; class A
+{
+private:
+int x; int y; public:
+A(int x, int y)
+{
+this->x = x; this->y = y;
+}
+void display()
+{
+cout<<"x = "<<x<<endl; cout<<"y = "<<y<<endl;
+}
+};
+int main()
+{
+A *ptr = new A(10, 30); //Here ptr is pointer to class A ptr->display();
+return 0;
+}
+
+
+Output:
+
+x = 10
+y = 30
+
+
+
+
+
+
+
+
+
+
+Exercise -3(Operator Overloading) 
+1.Aim: To write a program to Overload Unary, and Binary Operators as Member Function, and Non Member Function
+
+1.	Unary operator as member function
+
+Program:
+
+#include <iostream> using namespace std; class Number
+{
+private:
+int x; public:
+Number(int p)
+{
+x = p;
+}
+void operator -()
+{
+x = -x;
+}
+void display()
+{
+cout<<"x = "<<x;
+}
+};
+int main()
+{
+Number n(10);
+-n; n.display(); return 0;
+}
+
+
+Output
+
+x = -10
+ 
+2.	Binary operator as non member function
+
+Program:
+
+#include <iostream> using namespace std; class Complex
+{
+private:
+float real; float imag; public: Complex(){}
+Complex(float r, float i)
+{
+real = r; imag = i;
+}
+void display()
+{
+cout<<real<<"+i"<<imag;
+}
+friend Complex operator +(Complex &, Complex &);
+};
+Complex operator +(Complex &c1, Complex &c2)
+{
+Complex temp;
+temp.real = c1.real + c2.real; temp.imag = c1.imag + c2.imag; return temp;
+}
+int main()
+{
+Complex c1(3, 4);
+Complex c2(4, 6); Complex c3 = c1+c2; c3.display();
+return 0;
+}
+
+
+Output
+
+7+i10
+ 
+  2.Aim:To write a c ++ program to implement the overloading assignment = operator
+Program:
+
+#include <iostream> using namespace std; class Number
+{
+private:
+int x; public:
+Number(int p)
+{
+x = p;
+}
+Number operator =(Number &n)
+{
+return Number(n.x);
+}
+void display()
+{
+cout<<"x = "<<x;
+}
+};
+int main()
+{
+Number n1(10); Number n2 = n1; n2.display(); return 0;
+}
+Output
+x = 10
+
+
+
+
+
+
+
+
+
+
+
+Exercise -4(Inheritance) 
+1.Aim: To write C++ Programs and incorporating various forms of Inheritance
+i)	Single Inheritance
+ii)	Hierarchical Inheritance
+iii)	Multiple Inheritances
+iv)	Multi-level inheritance
+v)	Hybrid inheritance i) Single Inheritance Program:
+#include<iostream> using namespace std; class A
+{
+protected:
+char name[10]; int age;
+};
+class B:public A
+{
+public: float h; int w;
+void get_data()
+{
+cout<<"Enter name and age:\n"; cin>>name>>age;
+cout<<"\n Enter weight and height:\n"; cin>>w>>h;
+}
+void show()
+{
+cout<<"Name: "<<name<<endl; cout<<"Age: "<<age<<endl; cout<<"Weight: "<<w<<endl; cout<<"Height: "<<h<<endl;
+}
+};
+int main()
+{
+B C;
+C.get_data();
+C.show();
+}
+Output:
+Enter name and age: Radhika	52
+Enter weight and height:
+72	5.5
+ 
+Name: Radhika Age: 52
+Weight: 72
+Height: 5.5
+
+ii)	Hierarchical Inheritance
+
+Program:
+
+#include<iostream> using namespace std; class A
+{
+protected:
+char name[20]; int age;
+};
+class B:public A
+{
+public:
+float h; int w;
+void get_data1()
+{
+cout<<"Enter name:"; cin>>name;
+cout<<"Enter weight and height:"; cin>>w>>h;
+}
+void show()
+{
+cout<<"This is class B and it is inherited from Class A\n"; cout<<"Name: "<<name<<endl;
+cout<<"Weight: "<<w<<endl; cout<<"Height: "<<h<<endl;
+}
+};
+class C:public A
+{
+public:
+char gender; void get_data2()
+{
+cout<<"Enter age:"; cin>>age; cout<<"Enter gender:"; cin>>gender;
+}
+void show()
+{
+cout<<"This is class C and it is inherited from class A\n"; cout<<"Age: "<<age<<endl;
+ 
+cout<<"Gender: "<<gender<<endl;
+}
+};
+int main()
+{
+B ob; C ob1;
+ob.get_data1(); ob1.get_data2(); ob.show();
+ob1.show();
+}
+Output:
+Enter name: Ramu
+Enter weight and height: 63	5.8
+Enter age: 26 Enter gender: M
+This is class B and it is inherited form class A Name: Ramu
+Weight: 63
+Height: 5.8
+This is class C and it is inherited form class A Age: 26
+Gender: M
+iii)	Multiple Inheritance
+Program:
+#include<iostream> using namespace std; class A
+{
+ 
+
+
+
+};
+class B
+{
+
+
+
+};
+ 
+protected:
+char name[20]; int age;
+
+
+
+protected: int w; float h;
+ 
+class C:public A, B
+{
+public: char g;
+void get_data()
+{
+cout<<"Enter name and age:\n"; cin>>name>>age;
+cout<<"Enter weight and height:\n"; cin>>w>>h;
+cout<<"Enter gender: ";
+ 
+cin>>g;
+}
+void show()
+{
+cout<<"\nName: "<<name<<endl<<"Age: "<<age<<endl; cout<<"Weight: "<<w<<endl<<"Height: "<<h<<endl; cout<<"Gender: "<<g<<endl;
+}
+};
+int main()
+{
+C ob; ob.get_data(); ob.show();
+}
+
+Output:
+Enter name and age: Mukesh	31
+Enter weight and height: 64	5.9
+Enter gender: M Name: Mukesh Age: 31
+Weight: 64
+Height: 5.9 Gender: M
+iv)	Multi-level Inheritance Program:
+#include<iostream> using namespace std; class A
+{
+protected:
+char name[20]; int age;
+};
+class B:public A
+{
+protected: int w; float h;
+};
+class C:public B
+{
+public: char g;
+
+void get_data()
+{
+cout<<"Enter name and age:\n";
+ 
+cin>>name>>age;
+cout<<"Enter weight and height:\n"; cin>>w>>h;
+cout<<"Enter gender:"; cin>>g;
+}
+void show()
+{
+cout<<"\nName: "<<name<<endl<<"Age: "<<age<<endl; cout<<"Weight: "<<w<<endl<<"Height: "<<h<<endl; cout<<"Gender: "<<g<<endl;
+}
+};
+int main()
+{
+C ob; ob.get_data(); ob.show();
+}
+Output:
+Enter name and age: Madhu	35
+Enter weight and height: 58	5.6
+Enter gender: F Name: Madhu Age: 35
+Weight: 58
+Height: 5.6 Gender: F
+v)	Hybrid Inheritance Program:
+#include<iostream> using namespace std; class A //Base class
+{
+public: int l;
+void len()
+{
+cout<<"Length: ";
+cin>>l;	//Length is enter by user
+}
+};
+class B :public A //Inherits property of class A
+{
+public:
+int b,c;
+void l_into_b()
+{
+len();
+ 
+
+
+
+
+};
+class C
+{
+ 
+
+
+
+}
+
+
+
+public: int h;
+ 
+cout<<"Breadth: ";
+cin>>b;	//Breadth is enter by user
+c=b*l;	//c stores value of length * Breadth i.e. (l*b).
+ 
+void height()
+{
+cout<<"Height: ";
+cin>>h;	//Height is enter by user
+}
+};
+class D:public B, public C //Hybrid Inheritance Level
+{
+public:
+int res;
+void volume()
+{
+l_into_b(); height(); res=h*c;
+cout<<"Volume is (l*b*h): "<<res<<endl;
+}
+void area()
+{
+l_into_b();
+cout<<"Area is (l*b): "<<c<<endl;
+}
+};
+int main()
+{
+D d1;
+cout<<"Enter dimensions of object to get Area:\n"; d1.area();
+cout<<"Enter values of object to get Volume:\n"; d1.volume();
+return 0;
+}
+Output:
+Enter dimensions of object to get Area: Length: 63
+Breadth: 23
+Area is (l * b): 1449
+Enter dimensions of object to get Volume: Length: 12
+Breadth: 27
+Height: 14
+Volume is (l * b * h): 4536
+ 
+2.Aim: To write C++ program to illustrate the order of execution of constructors and destructors in inheritance
+
+Program:
+
+#include<iostream> using namespace std; class parent//parent class
+{
+public: parent()//constructor
+{
+cout<<"Parent class Constructor\n";
+}
+~parent()//destructor
+{
+cout<<"Parent class Destructor\n";
+}
+};
+class child : public parent//child class
+{
+public:
+child() //constructor
+{
+cout<<"Child class Constructor\n";
+}
+~ child() //destructor
+{
+cout<<"Child class Destructor\n";
+}
+};
+int main()
+{
+
+child c; //automatically executes both child and parent class //constructors and destructors because of inheritance
+return 0;
+}
+
+Output:
+
+Parent class Constructor Child class Constructor Child class Destructor Parent class Destructor
+ 
+Exercise -5(Templates, Exception Handling)
+Aim: To write a C++ Program to illustrate template class
+Program:
+
+#include <iostream> using namespace std; template<class T> class Swapper
+{
+private:
+T x;
+T y; public:
+Swapper(T x, T y)
+{
+this->x = x; this->y = y;
+}
+void swap()
+{
+T temp = x; x = y;
+y = temp;
+}
+void display()
+{
+cout<<"After swap x = "<<x<<", y = "<<y<<endl;
+}
+};
+int main()
+{
+Swapper<int> s1(2, 4); s1.swap();
+s1.display(); Swapper<double> s2(4.2, 6.9); s2.swap();
+s2.display(); return 0;
+}
+
+Output:
+
+After swap x = 4, y = 2 After swap x = 6.9, y = 4.2
+ 
+2.Aim: To write a Program to illustrate member function templates
+Program:
+
+#include <iostream> using namespace std;
+// template function template <class T> T Large(T n1, T n2)
+{
+return (n1 > n2) ? n1 : n2;
+}
+int main()
+{
+int i1, i2; float f1, f2; char c1, c2;
+cout << "Enter two integers:\n"; cin >> i1 >> i2;
+cout << Large(i1, i2) <<" is larger." << endl;
+cout << "\nEnter two floating-point numbers:\n"; cin >> f1 >> f2;
+cout << Large(f1, f2) <<" is larger." << endl;
+cout << "\nEnter two characters:\n"; cin >> c1 >> c2;
+cout << Large(c1, c2) << " has larger ASCII value.";
+return 0;
+}
+
+Output:
+
+Enter two integers: 5
+10
+10 is larger.
+
+Enter two floating-point numbers: 12.4
+10.2
+12.4 is larger.
+
+Enter two characters: z
+Z
+z has larger ASCII value
+ 
+3.Aim: To write a Program for Exception Handling Divide by zero
+Program:
+
+#include <iostream> using namespace std; int main()
+{
+int a, b;
+cout<<"Enter two integer values: "; cin>>a>>b;
+try
+{
+if(b == 0)
+{
+ 
+
+}
+else
+{
+
+}
+}
+ 
+throw b;
+
+
+
+cout<<(a/b);
+ 
+catch(int)
+{
+cout<<"Second value cannot be zero";
+}
+return 0;
+}
+
+Input and Output:
+
+Enter two integer values: 4 0 Second value cannot be zero
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+4.Aim: To write a Program to rethrow an Exception
+Program:
+#include <iostream> using namespace std; int main()
+{
+ 
+try
+{
+ 
+
+
+int a, b;
+cout<<"Enter two integer values: "; cin>>a>>b;
+try
+{
+ 
+if(b == 0)
+{
+ 
+
+}
+else
+{
+
+}
+}
+catch(...)
+{
+throw; //rethrowing the exception
+}
+}
+catch(int)
+{
+cout<<"Second value cannot be zero";
+}
+return 0;
+}
+
+
+Input and Output:
+
+Enter two integer values: 10 0 Second value cannot be zero
+
+
+ 
+throw b;
+
+
+
+cout<<(a/b);
+ 
+Exercise -6 
+1.Aim: Write a C++ program illustrating user defined string processing functions using pointers (string length, string copy, string concatenation)
+ Program: 
+   #include <iostream>
+   #include <cstring>
+   using namespace std;
+   int main() 
+  {
+	char name1[10] = "aditya";
+	char name2[10] = "college";
+	char name3[10];
+	int  len;
+	strcpy(name3, name1);
+	cout << "string copy : " << name3 << endl;
+	strcat(name1, name2);
+	cout << "string concatenation: " << name1 << endl;
+	len = strlen(name1);
+	cout << "string length : " << len << endl;
+	return 0;
+   }
+
+   Input and Output 
+    string copy: aditya
+    string concatenation: adityacollege
+    string length:6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2.Aim:Write a C++ program illustrating Virtual classes & virtual functions
+Virtual base class
+       #include<iostream>
+       using namespace std;
+       class a//base class
+      {
+	public:
+		void show()
+		{
+			cout<<"this is an example program for virtual base class";
+		}
+       };
+
+        class b:virtual public a
+        {
+
+	public:
+		void display()
+		{
+			cout<<"this is a derived class for base class-a";
+		}
+         };
+        class c:virtual public a
+        {
+	public:
+		void print()
+		{
+			cout<<"this is derived class for base class-a";
+		}
+        };
+       class d:public b,public c
+        {
+	public:
+	void output()
+	{
+		cout<<"this is derived from a and c classes";	
+	}	
+        };
+       int main()
+       {
+	d o1;
+	o1.show();	
+       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Virtual function
+include<iostream>
+using namespace std;
+class Base 
+{
+public:
+   	virtual void display() 
+{
+cout<<"In Base class" <<endl;
+   	}
+};
+class Derived: public Base 
+{
+   	public:
+   		void display() 
+{
+cout<<"In Derived class" <<endl;
+   		}
+};
+int main()
+ {
+   	Base *bptr = new Derived;
+   	bptr->display();
+   	return 0;
+}
+Output
+       In Derived class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+                      3.Aim:Write C++ program that implement Bubble sort, to sort a given list of integers in ascending order.
+   Program 
+#include<stdio.h> int main()
+{
+int n,temp,i,j,a[20];
+printf("Enter total numbers of elements:\n"); scanf("%d",&n);
+printf("Enter elements:\n"); for(i=0;i<n;i++) scanf("%d",&a[i]); for(i=0;i<n;i++)
+{
+for(j=0;j<n-1;j++)
+{
+if(a[j]>a[j+1])
+{
+temp=a[j]; a[j]=a[j+1]; a[j+1]=temp;
+}
+}
+}
+printf("After sorting elements are:\n"); for(i=0;i<n;i++)
+printf(" %d",a[i]); return 0;
+}
+
+Output:
+Enter total numbers of elements: 10
+Enter elements:
+6 4 3 8 9 0 1 5 2 7
+    After sorting elements are: 0 1 2 3 4 5 6 7 8 9
+
+
+
+
+
+
